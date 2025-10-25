@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffe5f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff80a3;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6690;
+}
+
+#notesContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #ff80a3 #ffe5f1;
+}
+
+#notesContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#notesContainer::-webkit-scrollbar-track {
+    background: #ffe5f1;
+}
+
+#notesContainer::-webkit-scrollbar-thumb {
+    background: #ff80a3;
+    border-radius: 3px;
+}
+
+button {
+    transition: all 0.2s ease;
+}
+
+button:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: #ff80a3;
+}
+
+input, textarea {
+    transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #ff80a3;
+    box-shadow: 0 0 0 2px rgba(255, 128, 163, 0.2);
+}

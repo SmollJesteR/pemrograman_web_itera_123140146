@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pookie Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                100: "#ffe5f1",
+                200: "#ffccde",
+                300: "#ffb2ca",
+                400: "#ff99b7",
+                500: "#ff80a3",
+                600: "#ff6690",
+                700: "#ff4d7c",
+                800: "#ff3369",
+                900: "#ff1a55",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-primary-100 min-h-screen">
+    <custom-navbar></custom-navbar>
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-5xl font-bold text-primary-900 mb-8 text-center">
+        Personal Daily Dashboard
+      </h1>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Stats Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-semibold text-primary-800">Daily Stats</h2>
+            <i data-feather="activity" class="text-primary-500"></i>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Steps</span>
+              <span class="font-bold text-primary-700">8,542</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Water</span>
+              <span class="font-bold text-primary-700">5 glasses</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Sleep</span>
+              <span class="font-bold text-primary-700">7h 24m</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-600">Focus Time</span>
+              <span class="font-bold text-primary-700">15 min</span>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-primary-200">
+            <button
+              class="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Weather Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-semibold text-primary-800">Weather</h2>
+            <i data-feather="cloud" class="text-primary-500"></i>
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <div class="text-5xl font-bold text-primary-700">72°F</div>
+              <div class="text-gray-600">Sunny</div>
+            </div>
+            <div class="text-6xl">☀️</div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex items-center">
+              <i data-feather="wind" class="text-primary-500 mr-2"></i>
+              <span class="text-gray-600">12 mph</span>
+            </div>
+            <div class="flex items-center">
+              <i data-feather="droplet" class="text-primary-500 mr-2"></i>
+              <span class="text-gray-600">45%</span>
+            </div>
+            <div class="flex items-center">
+              <i data-feather="sunrise" class="text-primary-500 mr-2"></i>
+              <span class="text-gray-600">6:42 AM</span>
+            </div>
+            <div class="flex items-center">
+              <i data-feather="sunset" class="text-primary-500 mr-2"></i>
+              <span class="text-gray-600">7:15 PM</span>
+            </div>
+          </div>
+        </div>
+        <!-- Notes Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-semibold text-primary-800">Quick Notes</h2>
+            <button
+              id="addNoteBtn"
+              class="text-primary-500 hover:text-primary-700"
+            >
+              <i data-feather="plus"></i>
+            </button>
+          </div>
+          <div id="notesContainer" class="space-y-3 max-h-60 overflow-y-auto">
+            <!-- Notes will be added here dynamically -->
+          </div>
+          <div class="mt-4">
+            <div id="noteEditor" class="hidden">
+              <textarea
+                id="noteText"
+                class="w-full h-24 p-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent mb-2"
+                placeholder="Write your note..."
+              ></textarea>
+              <div class="flex justify-end space-x-2">
+                <button
+                  id="cancelNoteBtn"
+                  class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-lg transition duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  id="saveNoteBtn"
+                  class="bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Events Section -->
+      <div class="mt-8 bg-white rounded-2xl shadow-lg p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-semibold text-primary-800">
+            Insert Events ✏️
+          </h2>
+          <button
+            id="addEventBtn"
+            class="text-primary-500 hover:text-primary-700"
+          >
+            <i data-feather="plus"></i>
+          </button>
+        </div>
+        <div id="eventForm" class="hidden mb-6 bg-primary-50 p-4 rounded-lg">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium text-primary-700 mb-1"
+                >Time</label
+              >
+              <input
+                type="time"
+                id="eventTime"
+                class="w-full p-2 border border-primary-200 rounded-lg"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-primary-700 mb-1"
+                >Event</label
+              >
+              <input
+                type="text"
+                id="eventName"
+                class="w-full p-2 border border-primary-200 rounded-lg"
+                placeholder="Event name"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-primary-700 mb-1"
+                >Location</label
+              >
+              <input
+                type="text"
+                id="eventLocation"
+                class="w-full p-2 border border-primary-200 rounded-lg"
+                placeholder="Location"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button
+              id="cancelEventBtn"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-lg transition duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              id="saveEventBtn"
+              class="bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+            >
+              Save Event
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-semibold text-primary-800">
+            Upcoming Events
+          </h2>
+          <i data-feather="calendar" class="text-primary-500"></i>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-primary-200">
+                <th class="text-left py-3 px-4 text-primary-700">Time</th>
+                <th class="text-left py-3 px-4 text-primary-700">Event</th>
+                <th class="text-left py-3 px-4 text-primary-700">Location</th>
+              </tr>
+            </thead>
+            <tbody id="eventsContainer">
+              <tr class="border-b border-primary-100 hover:bg-primary-50">
+                <td class="py-3 px-4">9:00 AM</td>
+                <td class="py-3 px-4">Morning Meeting</td>
+                <td class="py-3 px-4">Zoom</td>
+              </tr>
+              <tr class="border-b border-primary-100 hover:bg-primary-50">
+                <td class="py-3 px-4">12:30 PM</td>
+                <td class="py-3 px-4">Lunch with Sarah</td>
+                <td class="py-3 px-4">Downtown Cafe</td>
+              </tr>
+              <tr class="border-b border-primary-100 hover:bg-primary-50">
+                <td class="py-3 px-4">3:00 PM</td>
+                <td class="py-3 px-4">Gym Session</td>
+                <td class="py-3 px-4">FitLife Gym</td>
+              </tr>
+              <tr class="hover:bg-primary-50">
+                <td class="py-3 px-4">7:00 PM</td>
+                <td class="py-3 px-4">Movie Night</td>
+                <td class="py-3 px-4">Home</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <custom-footer></custom-footer>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+      feather.replace();
+    </script>
+  </body>
+</html>
